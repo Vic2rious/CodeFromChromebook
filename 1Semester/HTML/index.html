@@ -1,0 +1,73 @@
+<html>
+ <head>
+  <title>PHP Test</title>
+
+ </head>
+ <body>
+   <canvas id="myCanvas" width="500" height="650" style="border:2px solid #000000;">
+     <script>
+     var c = document.getElementById("myCanvas");
+     var ctx = c.getContext("2d");
+
+     let count = 0;
+
+     let X = [250, 50, 450];
+     let Y = [20, 580, 580];
+
+     ctx.fillRect(X[0],Y[0],1,1);
+     ctx.fillRect(X[1],Y[1],1,1);
+     ctx.fillRect(X[2],Y[2],1,1);
+     draw();
+
+     /*
+     for(let i = 0; i < X.length; i++){
+       console.log(X[i]);
+       console.log(Y[i]);
+     }*/
+
+
+     //ctx.fillRect(SmallT[3][0],SmallT[3][1],10,10);
+
+
+     function draw() {
+       rnd1 = rnd(3);
+       rnd2 = rnd(X.length);
+
+       if(rnd1 == rnd2 || check(rnd1, rnd2) == false) {
+         return draw();
+       }
+
+       ctx.fillRect((X[rnd1]+X[rnd2])/2,(Y[rnd1]+Y[rnd2])/2,2,2);
+
+       X.push((X[rnd1]+X[rnd2])/2);
+       Y.push((Y[rnd1]+Y[rnd2])/2);
+
+
+
+       count++;
+
+       if(count == 5000) {
+         return;
+       }
+       return draw();
+
+
+     }
+
+     function rnd(max) {
+       return Math.floor(Math.random() * max);
+     }
+
+     function check(a, b) {
+       for(i = 0; i<X.length; i++) {
+         if(X[i] == (X[a]+X[b])/2 && Y[i] == (Y[a]+Y[b])/2){
+           return false;
+         }
+       }
+       return true;
+     }
+
+     </script>
+ </body>
+
+</html>
